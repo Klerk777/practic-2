@@ -1,26 +1,25 @@
-import { Component } from 'react';
+import { useState } from 'react';
 
 import { FiSearch } from 'react-icons/fi';
 import { FormBtn, InputSearch, SearchFormStyled } from './SearchForm.styled';
 
-export class SearchForm extends Component {
-  state = {
-    query: '',
-  };
+export const SearchForm = ({onSubmitForm}) => {
+  const [query, setQuery] = useState('')
 
-  onChange = e => {
-    this.setState({ query: e.target.value });
+  const onChange = e => {
+    // this.setState({ query: e.target.value });
+    setQuery(e.target.value)
   };
-  onSubmit = e => {
+  const onSubmit = e => {
     e.preventDefault();
-    const { query } = this.state;
-    this.props.onSubmit(query);
+    
+    onSubmitForm(query);
   };
 
-  render() {
-    const { query } = this.state;
+  
+   
     return (
-      <SearchFormStyled onSubmit={this.onSubmit}>
+      <SearchFormStyled onSubmit={onSubmit}>
         <FormBtn type="submit">
           <FiSearch size="16px" />
         </FormBtn>
@@ -29,10 +28,10 @@ export class SearchForm extends Component {
           name="query"
           required
           autoFocus
-          onChange={this.onChange}
+          onChange={onChange}
           value={query}
         />
       </SearchFormStyled>
     );
   }
-}
+
